@@ -1,0 +1,35 @@
+body {
+    font-family: 'Hind Siliguri', sans-serif;
+    background-color: #f8f9fa;
+    color: #1e293b;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hero-banner {
+    background: linear-gradient(135deg, #0073e6 0%, #0052cc 50%, #0f172a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('images/hero-banner.jpg') center/cover no-repeat;
+    opacity: 0.25;
+    mix-blend-mode: overlay;
+}
+
+.active-nav-tab {
+    background-color: #0073e6 !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}

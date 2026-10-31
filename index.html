@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shutkiz - Premium Taste of Dry Fish | প্রিমিয়াম শুটকি মাছ</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#f8f9fa] min-h-screen flex flex-col antialiased">
+
+    <!-- TOP ACCENT BAR -->
+    <div class="bg-[#4a2529] text-white text-xs py-1.5 px-4 text-center font-medium flex justify-between items-center max-w-full">
+        <div class="hidden sm:flex items-center gap-4 mx-auto md:mx-0">
+            <span><i class="fa-solid fa-truck-fast text-amber-400 mr-1"></i> সারা বাংলাদেশে হোম ডেলিভারি</span>
+            <span><i class="fa-solid fa-shield-halved text-emerald-400 mr-1"></i> ১০০% বিষমুক্ত ও কেমিক্যালহীন খাঁটি শুটকি</span>
+        </div>
+        <div class="flex items-center gap-4 mx-auto md:mx-0 font-bold">
+            <a href="tel:01324536626" class="hover:text-amber-300 transition"><i class="fa-solid fa-phone mr-1"></i> +008 01324536626</a>
+            <span class="text-amber-300">|</span>
+            <span class="cursor-pointer hover:underline" onclick="switchPage('activities')">আমাদের কার্যক্রম</span>
+        </div>
+    </div>
+
+    <!-- MAIN NAVIGATION HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+            
+            <!-- LOGO -->
+            <a href="#" onclick="switchPage('home')" class="flex items-center gap-2 group flex-shrink-0">
+                <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-xl group-hover:scale-105 transition-transform shadow-inner">
+                    <i class="fa-solid fa-fish"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-black text-[#0073e6] leading-none tracking-tight">SShutkiz<span class="text-xs align-top text-orange-500 font-bold">TM</span></span>
+                    <span class="text-[9px] text-slate-500 font-bold tracking-wider uppercase">PREMIUM TASTE OF DRY FISH</span>
+                </div>
+            </a>
+
+            <!-- SEARCH BAR -->
+            <div class="flex-1 max-w-xl relative hidden md:block">
+                <div class="relative">
+                    <input type="text" id="searchInput" oninput="handleGlobalSearch(this.value)" placeholder="অনুসন্ধান করুন..." 
+                           class="w-full pl-4 pr-10 py-2 rounded-full border border-slate-300 focus:outline-none focus:border-[#0073e6] text-sm bg-slate-50 transition">
+                    <button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0073e6]">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT ICONS -->
+            <div class="flex items-center gap-3 text-slate-700">
+                <button onclick="openUserModal()" class="hover:text-[#0073e6] p-2 rounded-full hover:bg-slate-100 transition relative" title="User Account">
+                    <i class="fa-regular fa-user text-xl"></i>
+                </button>
+                
+                <button onclick="toggleCartModal()" class="hover:text-[#0073e6] p-2 rounded-full hover:bg-slate-100 transition relative" title="Shopping Cart">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <span id="cartBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow">0</span>
+                </button>
+
+                <button id="langToggleBtn" onclick="toggleLanguage()" class="hover:text-[#0073e6] px-2.5 py-1 rounded-full border border-slate-200 text-xs font-bold text-slate-700 flex items-center gap-1 hover:bg-slate-50">
+                    <i class="fa-solid fa-globe text-slate-500"></i> <span id="currentLangLabel">BN</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- MOBILE SEARCH BAR -->
+        <div class="px-4 pb-2 md:hidden">
+            <div class="relative">
+                <input type="text" id="mobileSearchInput" oninput="handleGlobalSearch(this.value)" placeholder="অনুসন্ধান করুন..." 
+                       class="w-full pl-4 pr-10 py-2 rounded-full border border-slate-300 focus:outline-none focus:border-[#0073e6] text-sm bg-slate-50">
+                <button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- CATEGORY NAVIGATION TABS -->
+        <nav class="border-t border-slate-100 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-2 text-sm font-medium text-slate-700 whitespace-nowrap">
+                    <button onclick="switchPage('home')" id="nav-home" class="nav-tab px-3.5 py-1.5 rounded-full hover:bg-slate-100 transition active-nav-tab">মূল পাতা</button>
+                    <button onclick="switchPage('premium')" id="nav-premium" class="nav-tab px-3.5 py-1.5 rounded-full hover:bg-slate-100 transition">প্রিমিয়াম শুটকি মাছ</button>
+                    <button onclick="switchPage('raw')" id="nav-raw" class="nav-tab px-3.5 py-1.5 rounded-full hover:bg-slate-100 transition">Raw Fish</button>
+                    <button onclick="switchPage('balachao')" id="nav-balachao" class="nav-tab px-3.5 py-1.5 rounded-full hover:bg-slate-100 transition">বালাচাও</button>
+                    <button onclick="switchPage('chips')" id="nav-chips" class="nav-tab px-3.5 py-1.5 rounded-full hover:bg-slate-100 transition">ফিশ চিপস</button>
+                    <button onclick="switchPage('vorta')" id="nav-vorta" class="nav-tab px-3.5 py-1.5 rounded-full hover:bg-slate-100 transition">শুটকি ভর্তা মিশ্র</button>
+                    <button onclick="switchPage('recipes')" id="nav-recipes" class="nav-tab px-3.5 py-1.5 rounded-full hover:bg-slate-100 transition">শুটকি রেসিপি</button>
+                    <button onclick="switchPage('blog')" id="nav-blog" class="nav-tab px-3.5 py-1.5 rounded-full hover:bg-slate-100 transition">শুটকি ব্লগ</button>
+                    <button onclick="switchPage('activities')" id="nav-activities" class="nav-tab px-3.5 py-1.5 rounded-full hover:bg-slate-100 transition">আমাদের কার্যক্রম</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- NOTIFICATION TOAST CONTAINER -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+    <!-- MAIN DYNAMIC CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ================= PAGE 1: HOME PAGE ================= -->
+        <div id="page-home" class="page-view space-y-10">
+            <!-- HERO BANNER -->
+            <section class="hero-banner rounded-3xl p-6 md:p-12 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="z-10 max-w-2xl text-center md:text-left space-y-4">
+                    <div class="inline-block px-3.5 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-semibold tracking-wider uppercase">
+                        🌊 চট্টগ্রাম উপকূলের খাঁটি শুটকি
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black text-white drop-shadow-md leading-tight">
+                        সাগর থেকে <br><span class="text-sky-300">নগরে</span>
+                    </h1>
+                    <p class="text-sky-100 text-base md:text-lg max-w-lg font-light leading-relaxed">
+                        বিষমুক্ত ও কেমিক্যালহীন তাজা সামুদ্রিক মাছ থেকে রোদে শুকানো প্রিমিয়াম কোয়ালিটির দেশীয় শুটকি সরাসরি আপনার দরজায়।
+                    </p>
+                    <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-4">
+                        <button onclick="switchPage('premium')" class="bg-amber-500 hover:bg-amber-400 text-slate-900 font-extrabold px-6 py-3 rounded-2xl shadow-lg transition duration-200">
+                            পণ্যসমূহ দেখুন <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                        <a href="tel:01324536626" class="bg-sky-500 hover:bg-sky-400 text-white font-bold px-5 py-3 rounded-2xl transition flex items-center gap-2 shadow-md">
+                            <i class="fa-solid fa-phone-volume text-white"></i> CALL US NOW! 01324-536626
+                        </a>
+                    </div>
+                </div>
+                <div class="z-10 relative flex justify-center items-center">
+                    <div class="w-60 h-60 md:w-80 md:h-80 rounded-full border-4 border-white/30 p-2 shadow-2xl bg-white/10 backdrop-blur-sm overflow-hidden flex items-center justify-center">
+                        <img src="images/hero-banner.jpg" alt="Dry Fish Banner" class="w-full h-full object-cover rounded-full hover:scale-110 transition duration-500">
+                    </div>
+                </div>
+            </section>
+
+            <!-- CIRCULAR CATEGORY GRID -->
+            <section>
+                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4 text-center">
+                    <div onclick="switchPage('premium')" class="group cursor-pointer flex flex-col items-center space-y-2 p-3 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-[#0073e6] transition">
+                        <div class="w-20 h-20 rounded-full bg-sky-50 border-2 border-sky-200 flex items-center justify-center overflow-hidden p-1 group-hover:border-[#0073e6] transition">
+                            <img src="images/loitta.jpg" alt="প্রিমিয়াম শুটকি" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="text-xs font-bold text-slate-800 group-hover:text-[#0073e6]">প্রিমিয়াম শুটকি মাছ</span>
+                    </div>
+                    <div onclick="switchPage('raw')" class="group cursor-pointer flex flex-col items-center space-y-2 p-3 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-[#0073e6] transition">
+                        <div class="w-20 h-20 rounded-full bg-sky-50 border-2 border-sky-200 flex items-center justify-center overflow-hidden p-1 group-hover:border-[#0073e6] transition">
+                            <img src="images/popa.jpg" alt="সামুদ্রিক তাজা মাছ" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="text-xs font-bold text-slate-800 group-hover:text-[#0073e6]">সামুদ্রিক তাজা মাছ</span>
+                    </div>
+                    <div onclick="switchPage('balachao')" class="group cursor-pointer flex flex-col items-center space-y-2 p-3 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-[#0073e6] transition">
+                        <div class="w-20 h-20 rounded-full bg-sky-50 border-2 border-sky-200 flex items-center justify-center overflow-hidden p-1 group-hover:border-[#0073e6] transition">
+                            <img src="images/balachao.jpg" alt="বালাচাও" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="text-xs font-bold text-slate-800 group-hover:text-[#0073e6]">বালাচাও</span>
+                    </div>
+                    <div onclick="switchPage('chips')" class="group cursor-pointer flex flex-col items-center space-y-2 p-3 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-[#0073e6] transition">
+                        <div class="w-20 h-20 rounded-full bg-sky-50 border-2 border-sky-200 flex items-center justify-center overflow-hidden p-1 group-hover:border-[#0073e6] transition">
+                            <img src="images/laila-icha.jpg" alt="ফিশ চিপস" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="text-xs font-bold text-slate-800 group-hover:text-[#0073e6]">ফিশ চিপস</span>
+                    </div>
+                    <div onclick="switchPage('recipes')" class="group cursor-pointer flex flex-col items-center space-y-2 p-3 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-[#0073e6] transition">
+                        <div class="w-20 h-20 rounded-full bg-sky-50 border-2 border-sky-200 flex items-center justify-center overflow-hidden p-1 group-hover:border-[#0073e6] transition">
+                            <img src="images/churi.jpg" alt="রেসিপি বই" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="text-xs font-bold text-slate-800 group-hover:text-[#0073e6]">রেসিপি বই</span>
+                    </div>
+                    <div onclick="switchPage('vorta')" class="group cursor-pointer flex flex-col items-center space-y-2 p-3 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-[#0073e6] transition">
+                        <div class="w-20 h-20 rounded-full bg-sky-50 border-2 border-sky-200 flex items-center justify-center overflow-hidden p-1 group-hover:border-[#0073e6] transition">
+                            <img src="images/vorta-mix.jpg" alt="কম্বো প্যাকেজ" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="text-xs font-bold text-slate-800 group-hover:text-[#0073e6]">কম্বো প্যাকেজ</span>
+                    </div>
+                    <div onclick="switchPage('activities')" class="group cursor-pointer flex flex-col items-center space-y-2 p-3 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-[#0073e6] transition">
+                        <div class="w-20 h-20 rounded-full bg-sky-50 border-2 border-sky-200 flex items-center justify-center overflow-hidden p-1 group-hover:border-[#0073e6] transition">
+                            <img src="images/nona-ilish.jpg" alt="গিফট বক্স" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="text-xs font-bold text-slate-800 group-hover:text-[#0073e6]">শুটকি মাছের গিফট বক্স</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SPECIAL COMBO PACKAGES -->
+            <section class="space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                    <h2 class="text-2xl font-bold text-slate-800 border-l-4 border-[#0073e6] pl-3">স্পেশাল কম্বো প্যাকেজ</h2>
+                    <button onclick="switchPage('balachao')" class="text-[#0073e6] text-sm font-semibold hover:underline flex items-center gap-1">
+                        সবগুলো দেখুন <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div class="relative h-56 overflow-hidden bg-slate-100">
+                            <img src="images/balachao.jpg" alt="Chatgaiya Balachao Combo" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">মজার ও ৪ রকমের বালাচাও এখন মাত্র ১০০০ টাকায়!</span>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <h3 class="font-bold text-slate-900 text-lg">Chatgaiya Balachao (চাটগাঁইয়া বালাচাও কম্বো)</h3>
+                            <p class="text-slate-500 text-xs">চিংড়ি, নাগা ও মিশ্র বালাচাও এর স্পেশাল ফ্যামিলি জার প্যাক।</p>
+                            <div class="pt-2 flex items-center justify-between">
+                                <span class="text-xl font-bold text-[#0073e6]">৳ ১০০০</span>
+                                <button onclick="addToCart(101, 'Chatgaiya Balachao Combo', 1000, 'images/balachao.jpg')" class="bg-[#0073e6] hover:bg-sky-600 text-white font-bold px-4 py-2 rounded-xl text-sm transition">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div class="relative h-56 overflow-hidden bg-slate-100">
+                            <img src="images/vorta-mix.jpg" alt="Shutki Vorta Mix Combo" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">বেস্ট সেলার</span>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <h3 class="font-bold text-slate-900 text-lg">প্রিমিয়াম শুটকি ভর্তা মিক্স প্যাক</h3>
+                            <p class="text-slate-500 text-xs">ঝাল ও সুস্বাদু ঐতিহ্যবাহী রেডি-টু-ইট শুটকি ভর্তা উপাদান।</p>
+                            <div class="pt-2 flex items-center justify-between">
+                                <span class="text-xl font-bold text-[#0073e6]">৳ ৮৫০</span>
+                                <button onclick="addToCart(102, 'প্রিমিয়াম শুটকি ভর্তা মিক্স প্যাক', 850, 'images/vorta-mix.jpg')" class="bg-[#0073e6] hover:bg-sky-600 text-white font-bold px-4 py-2 rounded-xl text-sm transition">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div class="relative h-56 overflow-hidden bg-slate-100">
+                            <img src="images/nona-ilish.jpg" alt="Gift Box" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-amber-500 text-slate-900 text-xs font-bold px-2.5 py-1 rounded-full">উপহার প্যাক</span>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <h3 class="font-bold text-slate-900 text-lg">শুটকি মাছের রয়াল গিফট বক্স</h3>
+                            <p class="text-slate-500 text-xs">৫ পদের প্রিমিয়াম অর্গানিক শুটকি সহ সুদৃশ্য গিফট বক্স।</p>
+                            <div class="pt-2 flex items-center justify-between">
+                                <span class="text-xl font-bold text-[#0073e6]">৳ ২৫০০</span>
+                                <button onclick="addToCart(103, 'শুটকি মাছের রয়াল গিফট বক্স', 2500, 'images/nona-ilish.jpg')" class="bg-[#0073e6] hover:bg-sky-600 text-white font-bold px-4 py-2 rounded-xl text-sm transition">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BEST SELLING PRODUCTS -->
+            <section class="space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                    <h2 class="text-2xl font-bold text-slate-800 border-l-4 border-[#0073e6] pl-3">সর্বাধিক বিক্রিত</h2>
+                    <button onclick="switchPage('premium')" class="text-[#0073e6] text-sm font-semibold hover:underline flex items-center gap-1">
+                        সব শুটকি দেখুন <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4" id="homeBestSellingGrid"></div>
+            </section>
+
+            <!-- ABOUT SECTION -->
+            <section class="bg-white rounded-3xl p-6 md:p-10 border border-slate-200 shadow-sm space-y-6">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-black text-slate-900 mb-3">বাংলাদেশের সেরা শুটকি কিনুন।</h2>
+                    <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+                        শুটকিজে, আমরা বাংলাদেশের সেরা উপকূলীয় অঞ্চল থেকে প্রাপ্ত শুটকি মাছের সেরা নির্বাচন অফার করি। আমাদের শুটকি যত্ন সহকারে শুকানো হয় এর সমৃদ্ধ স্বাদ এবং পুষ্টিগুণ রক্ষা করার জন্য, নিশ্চিত করে যে প্রতিটি কামড় একটি খাঁটি স্বাদ প্রদান করে।
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 pt-2">
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                        <h3 class="text-lg font-bold text-[#0073e6] flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info"></i> আমরা কারা?
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            শুটকিজ একটি অনলাইন প্ল্যাটফর্ম যা বাংলাদেশে সেরা মানের শুঁটকি সরবরাহ করতে নিবেদিত। আমরা শুটকির ঐতিহ্যবাহী স্বাদ আপনার বাড়িতে সহজে এবং সুবিধার সাথে নিয়ে আসতে আগ্রহী।
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                        <h3 class="text-lg font-bold text-[#0073e6] flex items-center gap-2">
+                            <i class="fa-solid fa-store"></i> আমরা যেসব পণ্য বিক্রয় করি
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            আমরা ছুরি শুটকি, লোইট্টা শুটকি এবং রূপচাঁদা শুটকির মতো জনপ্রিয় ধরনের সহ বিভিন্ন ধরণের শুকনো মাছের পণ্য অফার করি।
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PAGE 2: PREMIUM DRY FISH ================= -->
+        <div id="page-premium" class="page-view hidden space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h1 class="text-3xl font-black text-slate-900">প্রিমিয়াম শুটকি মাছ (Premium Dry Fish)</h1>
+                <p class="text-slate-500 text-sm">বিষমুক্ত, কেমিক্যালহীন খাঁটি সামুদ্রিক শুটকি মাছের তালিকা</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-6">
+                <aside class="w-full md:w-64 flex-shrink-0 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm h-fit">
+                    <h3 class="font-bold text-slate-900 text-base mb-4 pb-2 border-b border-slate-100 flex items-center justify-between">
+                        Categories <i class="fa-solid fa-chevron-up text-xs text-slate-400"></i>
+                    </h3>
+                    <div class="space-y-2 text-sm" id="premiumCategoryList"></div>
+                </aside>
+
+                <div class="flex-1">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="premiumProductsGrid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 3: RAW FISH ================= -->
+        <div id="page-raw" class="page-view hidden space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h1 class="text-3xl font-black text-slate-900">Raw Fish (সামুদ্রিক তাজা মাছ)</h1>
+                <p class="text-slate-500 text-sm">সরাসরি বঙ্গোপসাগর থেকে আহরিত তাজা আইস ফিশ</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-6">
+                <aside class="w-full md:w-64 flex-shrink-0 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm h-fit">
+                    <h3 class="font-bold text-slate-900 text-base mb-4 pb-2 border-b border-slate-100 flex items-center justify-between">
+                        Categories <i class="fa-solid fa-chevron-up text-xs text-slate-400"></i>
+                    </h3>
+                    <div class="space-y-2 text-sm" id="rawCategoryList"></div>
+                </aside>
+
+                <div class="flex-1">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="rawProductsGrid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 4: BALACHAO ================= -->
+        <div id="page-balachao" class="page-view hidden space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h1 class="text-3xl font-black text-slate-900">চাটগাঁইয়া বালাচাও (Balachao Special)</h1>
+                <p class="text-slate-500 text-sm">কম তেলে মচমচে চাটগাঁইয়া স্পেশাল চিংড়ি, নাগা ও মিক্সড বালাচাও</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-6">
+                <aside class="w-full md:w-64 flex-shrink-0 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm h-fit">
+                    <h3 class="font-bold text-slate-900 text-base mb-4 pb-2 border-b border-slate-100 flex items-center justify-between">
+                        Categories <i class="fa-solid fa-chevron-up text-xs text-slate-400"></i>
+                    </h3>
+                    <div class="space-y-2 text-sm" id="balachaoCategoryList"></div>
+                </aside>
+
+                <div class="flex-1">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="balachaoProductsGrid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 5: FISH CHIPS ================= -->
+        <div id="page-chips" class="page-view hidden space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h1 class="text-3xl font-black text-slate-900">ফিশ চিপস (Crispy Sea Chips)</h1>
+                <p class="text-slate-500 text-sm">তাজা মাছ থেকে তৈরি মচমচে ও পুষ্টিকর স্ন্যাকস</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="chipsProductsGrid"></div>
+        </div>
+
+        <!-- ================= PAGE 6: VORTA MIX ================= -->
+        <div id="page-vorta" class="page-view hidden space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h1 class="text-3xl font-black text-slate-900">শুটকি ভর্তা মিশ্র (Instant Vorta Mix)</h1>
+                <p class="text-slate-500 text-sm">ঐতিহ্যবাহী মশলা ও শুটকির রেডি রেসিপি মিশ্রণ</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="vortaProductsGrid"></div>
+        </div>
+
+        <!-- ================= PAGE 7: RECIPES ================= -->
+        <div id="page-recipes" class="page-view hidden space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h1 class="text-3xl font-black text-slate-900">শুটকি রেসিপি (Dry Fish Cooking Recipes)</h1>
+                <p class="text-slate-500 text-sm">অভিজ্ঞ শেফদের তৈরি সুস্বাদু ও উদ্ভাবনী শুটকি রান্নার প্রণালী</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-6">
+                <aside class="w-full md:w-64 flex-shrink-0 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm h-fit">
+                    <h3 class="font-bold text-slate-900 text-base mb-4 pb-2 border-b border-slate-100 flex items-center justify-between">
+                        Categories <i class="fa-solid fa-chevron-up text-xs text-slate-400"></i>
+                    </h3>
+                    <div class="space-y-2 text-sm" id="recipeCategoryList"></div>
+                </aside>
+
+                <div class="flex-1">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="recipesGrid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 8: BLOG ================= -->
+        <div id="page-blog" class="page-view hidden space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h1 class="text-3xl font-black text-slate-900">শুটকি ব্লগ (Knowledge & Health)</h1>
+                <p class="text-slate-500 text-sm">শুটকির উপকারিতা, সংরক্ষণ পদ্ধতি এবং পুষ্টিগুণ বিষয়ক আর্টিকেল</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="blogPostsGrid"></div>
+        </div>
+
+        <!-- ================= PAGE 9: OUR ACTIVITIES ================= -->
+        <div id="page-activities" class="page-view hidden space-y-8 bg-white p-6 md:p-10 rounded-3xl border border-slate-200 shadow-sm">
+            <div class="text-center space-y-3 border-b border-slate-200 pb-6">
+                <span class="bg-orange-100 text-orange-600 font-bold px-3 py-1 rounded-full text-xs">অফিসিয়াল ফ্ল্যাগশিপ ইভেন্ট</span>
+                <h1 class="text-3xl md:text-5xl font-black text-slate-900 leading-tight">
+                    Super Fresh Fortified Soyabean Oil Seafood Chefs Challenge
+                </h1>
+                <p class="text-slate-600 max-w-3xl mx-auto text-base">
+                    গুণী রাধুনী হন সিজন-১ এবং সিজন-২ সফলভাবে সমাপ্ত করার পর এবার আমরা আরো বড় পরিসরে আরো জাকজমকভাবে আয়োজন করতে যাচ্ছি “সুপার ফ্রেশ ফর্টিফাইড সয়াবিন অয়েল সী ফুড সেফস চ্যালেঞ্জ”।
+                </p>
+            </div>
+
+            <div class="prose max-w-none text-slate-700 space-y-6 text-sm md:text-base leading-relaxed">
+                <p>
+                    গবেষণা বলে যে আগামী দিনের খাদ্য এবং পুষ্টির প্রধান উৎস হতে যাচ্ছে সমুদ্র। বিশাল সমুদ্রের অফুরন্ত খাদ্য ভান্ডার আগামীদিনে আমাদের খাদ্য চাহিদার বড় একটা অংশ পুরণ করবে।
+                </p>
+
+                <!-- OBJECTIVES -->
+                <div class="bg-sky-50 p-6 rounded-2xl border border-sky-100 space-y-3">
+                    <h2 class="text-xl font-bold text-[#0073e6] flex items-center gap-2">
+                        <i class="fa-solid fa-bullseye"></i> উদ্দেশ্য
+                    </h2>
+                    <ul class="list-disc list-inside space-y-1 text-slate-800 font-medium">
+                        <li>সীফুডের পুষ্টিগুণ সম্পর্কে সবাইকে সচেতন করে তোলা।</li>
+                        <li>হোম শেফ বা গৃহিনীদের সীফুড রান্নায় আরো পারদর্শী করে তোলা।</li>
+                        <li>সীফুডের নিত্য নতুন রেসিপি উদ্ভাবন ও সংগ্রহ করা।</li>
+                    </ul>
+                </div>
+
+                <!-- PRIZE LIST -->
+                <div class="space-y-4">
+                    <h2 class="text-2xl font-bold text-slate-900 border-l-4 border-amber-500 pl-3">পুরষ্কারসমূহ</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-gradient-to-br from-amber-500 to-orange-600 text-white p-5 rounded-2xl shadow-md space-y-2">
+                            <span class="text-xs uppercase font-extrabold tracking-wider bg-black/20 px-2 py-0.5 rounded">🥇 চ্যাম্পিয়ন</span>
+                            <p class="text-sm font-semibold">১ লক্ষ টাকার প্রাইজ মানি + ৩২” স্মার্ট টিভি + ৩৬ পিছের ডিনার সেট + ট্রফি + সার্টিফিকেট।</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-slate-600 to-slate-800 text-white p-5 rounded-2xl shadow-md space-y-2">
+                            <span class="text-xs uppercase font-extrabold tracking-wider bg-black/20 px-2 py-0.5 rounded">🥈 ১ম রানার আপ</span>
+                            <p class="text-sm font-semibold">২৪” স্মার্ট টিভি + ৩২ পিছের ডিনার সেট + ক্রেস্ট + সার্টিফিকেট।</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-amber-700 to-amber-900 text-white p-5 rounded-2xl shadow-md space-y-2">
+                            <span class="text-xs uppercase font-extrabold tracking-wider bg-black/20 px-2 py-0.5 rounded">🥉 ২য় রানার আপ</span>
+                            <p class="text-sm font-semibold">২৪” এলইডি টিভি + ১৫ পিছের টি সেট + ক্রেস্ট + সার্টিফিকেট।</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REGISTRATION ACTION BUTTON -->
+                <div class="text-center bg-slate-900 text-white p-8 rounded-3xl space-y-4 shadow-xl">
+                    <h3 class="text-2xl font-bold">Register Now via Google Form</h3>
+                    <p class="text-xs text-slate-300 max-w-md mx-auto">রেজিস্ট্রেশন ফি: ৪৫০/- টাকা।</p>
+                    <button onclick="alert('গুগল রেজিস্ট্রেশন ফর্ম ওপেন হচ্ছে...')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-8 py-3.5 rounded-full text-base transition shadow-lg">
+                        Register Now (৳ 450)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-300 text-sm mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-4">
+                <a href="#" onclick="switchPage('home')" class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold">
+                        <i class="fa-solid fa-fish"></i>
+                    </div>
+                    <span class="text-2xl font-black text-white">SShutkiz<span class="text-xs text-orange-400">TM</span></span>
+                </a>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    বাংলাদেশের সেরা উপকূলীয় অঞ্চলের ঐতিহ্যবাহী, বিষমুক্ত ও কেমিক্যালহীন খাঁটি শুটকি মাছের অনলাইন শপ।
+                </p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-white text-base mb-4 border-l-2 border-[#0073e6] pl-2">গুরুত্বপূর্ণ লিংক</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" onclick="switchPage('home')" class="hover:text-white transition">মূল পাতা</a></li>
+                    <li><a href="#" onclick="openModalText('FAQ', 'আমাদের সকল শুটকি রোদে শুকানো এবং ১০০% কেমিক্যালমুক্ত।')" class="hover:text-white transition">FAQ</a></li>
+                    <li><a href="#" onclick="openModalText('রিটার্ন নীতি', '২৪ ঘণ্টার মধ্যে রিটার্ন সুবিধা।')" class="hover:text-white transition">রিটার্ন নীতি</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-white text-base mb-4 border-l-2 border-[#0073e6] pl-2">আমাদের সম্পর্কে</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" onclick="switchPage('activities')" class="hover:text-white transition">আমাদের কথা</a></li>
+                    <li><a href="#" onclick="openModalText('গোপনীয়তা নীতি', 'আপনার তথ্য সুরক্ষিত।')" class="hover:text-white transition">গোপনীয়তা নীতি</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-bold text-white text-base border-l-2 border-[#0073e6] pl-2">নিউজলেটার</h4>
+                <div class="flex items-center bg-slate-800 rounded-full p-1 border border-slate-700">
+                    <input type="email" placeholder="আপনার মেইল" class="bg-transparent px-3 text-xs w-full focus:outline-none text-white">
+                    <button onclick="alert('সাবস্ক্রিপশন সফল!')" class="bg-[#0073e6] text-white rounded-full p-2.5">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-slate-950 py-4 text-center text-xs text-slate-500 border-t border-slate-800/80">
+            <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+                <div>© 2025 Shutkiz. All rights reserved.</div>
+                <div class="text-slate-400 font-medium">Developed by <span class="text-sky-400 font-bold">Authentic Four Technology</span></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART MODAL -->
+    <div id="cartModal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="toggleCartModal()"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col justify-between p-6">
+            <div class="flex items-center justify-between border-b pb-4">
+                <h3 class="text-xl font-bold text-slate-900"><i class="fa-solid fa-cart-shopping text-[#0073e6]"></i> শপিং কার্ট</h3>
+                <button onclick="toggleCartModal()" class="text-slate-400 hover:text-slate-700 p-2 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="cartItemsList" class="flex-1 overflow-y-auto my-4 space-y-4"></div>
+            <div class="border-t pt-4 space-y-4">
+                <div class="flex justify-between items-center text-base font-bold text-slate-900">
+                    <span>মোট টাকা:</span>
+                    <span id="cartTotalPrice" class="text-xl text-[#0073e6]">৳ 0</span>
+                </div>
+                <button onclick="openCheckoutModal()" class="w-full bg-[#0073e6] hover:bg-sky-600 text-white font-extrabold py-3 rounded-2xl transition shadow-lg flex items-center justify-center gap-2">
+                    অর্ডার সম্পন্ন করুন <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeCheckoutModal()"></div>
+        <div class="relative bg-white w-full max-w-lg rounded-3xl shadow-2xl p-6 md:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="text-2xl font-black text-slate-900">অর্ডার নিশ্চিতকরণ</h3>
+                <button onclick="closeCheckoutModal()" class="text-slate-400 hover:text-slate-700 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="checkoutForm" onsubmit="handlePlaceOrder(event)" class="space-y-4 text-sm">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">আপনার পূর্ণ নাম *</label>
+                    <input type="text" required placeholder="যেমন: রহিম চৌধুরী" class="w-full border border-slate-300 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#0073e6]">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">মোবাইল নম্বর *</label>
+                    <input type="tel" required placeholder="017XXXXXXXX" class="w-full border border-slate-300 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#0073e6]">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">সম্পূর্ণ ঠিকানা *</label>
+                    <textarea required placeholder="বাসা নম্বর, রোড, এলাকা, জেলা" class="w-full border border-slate-300 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#0073e6]" rows="2"></textarea>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">ডেলিভারি এরিয়া *</label>
+                    <select id="deliveryZone" onchange="updateCheckoutTotal()" class="w-full border border-slate-300 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#0073e6] bg-white">
+                        <option value="60">চট্টগ্রাম শহরের ভেতরে (৳ ৬০)</option>
+                        <option value="120">চট্টগ্রামের বাইরে / সারা দেশ (৳ ১২০)</option>
+                    </select>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-2xl border space-y-2">
+                    <div class="flex justify-between text-slate-600">
+                        <span>পণ্যের মূল্য:</span>
+                        <span id="summarySubtotal">৳ 0</span>
+                    </div>
+                    <div class="flex justify-between text-slate-600">
+                        <span>ডেলিভারি চার্জ:</span>
+                        <span id="summaryDelivery">৳ 60</span>
+                    </div>
+                    <div class="flex justify-between font-extrabold text-slate-900 text-base border-t pt-2">
+                        <span>সর্বমোট মূল্য:</span>
+                        <span id="summaryGrandTotal" class="text-[#0073e6]">৳ 0</span>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-[#0073e6] hover:bg-sky-600 text-white font-extrabold py-3 rounded-2xl shadow-lg transition">অর্ডার কনফার্ম করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- INFO MODAL -->
+    <div id="infoModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeInfoModal()"></div>
+        <div class="relative bg-white max-w-md w-full p-6 rounded-3xl shadow-2xl space-y-4">
+            <h3 id="infoModalTitle" class="text-xl font-bold text-slate-900"></h3>
+            <p id="infoModalContent" class="text-sm text-slate-600 leading-relaxed"></p>
+            <button onclick="closeInfoModal()" class="w-full bg-slate-900 text-white font-bold py-2.5 rounded-xl text-xs">বন্ধ করুন</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
