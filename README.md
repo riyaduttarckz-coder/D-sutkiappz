@@ -122,4 +122,3 @@ The platform aims to connect customers with traditional Bangladeshi dry fish pro
 
 Important for your project report: The uploaded application already implements the shopping website features, but animated splash screen, secure authentication, GPS filtering, user post creation, and full English translation are still future development features.
 
-I can also turn these sections into a properly formatted college/university project documentation report with Introduction, Objectives, System Features, Technologies Used, and Conclusion.
